@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Vibe Coding — Infographic</title>
+    <meta
+      name="description"
+      content="A colorful infographic about vibe coding, built from the supplied dataset."
+    />
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+    <style>
+      :root {
+        /* Bright, colorful palette */
+        --bg1: #0b1026;
+        --bg2: #091b14;
+        --card: #0f1633cc;
+        --text: #f6f8ff;
+        --muted: #c9d3ff;
+        --line: rgba(255, 255, 255, 0.16);
+
+        --pink: #ff4fd8;
+        --violet: #9a63ff;
+        --blue: #3aa7ff;
+        --cyan: #2ef2ff;
+        --green: #4dff88;
+        --yellow: #ffe36d;
+        --orange: #ff9b3a;
+        --red: #ff4d6d;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        color: var(--text);
+        background: radial-gradient(
+            1200px 700px at 15% -10%,
+            rgba(154, 99, 255, 0.45) 0%,
+            transparent 55%
+          ),
+          radial-gradient(
+            1000px 700px at 95% 10%,
+            rgba(46, 242, 255, 0.35) 0%,
+            transparent 55%
+          ),
+          radial-gradient(
+            900px 600px at 20% 105%,
+            rgba(77, 255, 136, 0.2) 0%,
+            transparent 55%
+          ),
+          linear-gradient(135deg, var(--bg1), var(--bg2));
+      }
+
+      a {
+        color: var(--cyan);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      header {
+        padding: 52px 20px 18px;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(30px, 4vw, 48px);
+        letter-spacing: -0.03em;
+        line-height: 1.05;
+      }
+
+      .subtitle {
+        margin: 12px 0 0;
+        color: var(--muted);
+        max-width: 80ch;
+        line-height: 1.55;
+        font-size: 15px;
+      }
+
+      .pillrow {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 18px;
+      }
+      .pill {
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.06);
+        padding: 9px 12px;
+        border-radius: 999px;
+        color: var(--text);
+        font-size: 13px;
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        backdrop-filter: blur(8px);
+      }
+      .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+      }
+
+      main {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 10px 20px 70px;
+      }
+
+      .grid {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(12, 1fr);
+      }
+
+      .card {
+        grid-column: span 12;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 20px;
+        padding: 18px 18px 16px;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25),
+          0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+      }
+
+      .card h2 {
+        margin: 0 0 8px;
+        font-size: 18px;
+        letter-spacing: -0.01em;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+        font-size: 14px;
+      }
+
+      .badgeRow {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+      .badge {
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 999px;
+        padding: 6px 10px;
+        font-size: 12px;
+        color: var(--text);
+        background: rgba(0, 0, 0, 0.16);
+      }
+
+      .divider {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.14);
+        margin: 14px 0 0;
+      }
+
+      .twoCol {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(12, 1fr);
+        margin-top: 12px;
+      }
+      .left6 {
+        grid-column: span 12;
+      }
+      .right6 {
+        grid-column: span 12;
+      }
+      @media (min-width: 900px) {
+        .left6 {
+          grid-column: span 6;
+        }
+        .right6 {
+          grid-column: span 6;
+        }
+      }
+
+      .list {
+        margin: 10px 0 0;
+        padding: 0 0 0 18px;
+        color: var(--muted);
+        line-height: 1.6;
+        font-size: 14px;
+      }
+
+      .note {
+        border-left: 3px solid rgba(46, 242, 255, 0.9);
+        padding-left: 10px;
+        margin-top: 12px;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      /* Responsive chart containers:
+       - chart size follows the card width
+       - height adapts with clamp so it works well on mobile & desktop */
+      .chartWrap {
+        margin-top: 12px;
+        padding: 12px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(0, 0, 0, 0.18);
+      }
+
+      .chartBox {
+        position: relative;
+        width: 100%;
+        height: clamp(240px, 35vw, 420px);
+      }
+      .chartBox.compact {
+        height: clamp(220px, 30vw, 360px);
+      }
+
+      canvas {
+        width: 100% !important;
+        height: 100% !important;
+        display: block;
+      }
+
+      .kpiRow {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(12, 1fr);
+        margin-top: 12px;
+      }
+      .kpi {
+        grid-column: span 6;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(0, 0, 0, 0.18);
+        border-radius: 16px;
+        padding: 14px;
+      }
+      @media (min-width: 900px) {
+        .kpi {
+          grid-column: span 3;
+        }
+      }
+      .kpi strong {
+        display: block;
+        font-size: 22px;
+        letter-spacing: -0.02em;
+        margin-bottom: 6px;
+        color: var(--text);
+      }
+      .kpi span {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.45;
+      }
+
+      .note.source {
+        margin-top: 28px; /* space from the KPI grid */
+      }
+
+      .imageWrap img {
+        width: 100%;
+        max-width: 520px; /* adjust this value */
+        height: auto;
+        margin: 0 auto; /* center the image */
+        display: block;
+        margin-bottom: 16px;
+      }
+
+      footer {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px 40px;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Vibe Coding Market Infographic</h1>
+    </header>
+
+    <main class="grid">
+      <section class="card">
+        <h2>1) What is vibe coding?</h2>
+        <p>
+          A software development practice that uses artificial intelligence (AI)
+          to generate functional code from natural language prompts. The term,
+          coined by AI researcher Andrej Karpathy in early 2025, describes a
+          workflow where the primary role shifts from writing code line-by-line
+          to guiding an AI assistant to generate, refine, and debug an
+          application through a more conversational process.
+        </p>
+
+        <h2 style="margin-top: 14px">Common platforms</h2>
+        <ul class="list">
+          <li>
+            <strong>“Pure” vibe coding:</strong> Replit, lovable, v0, Base44
+          </li>
+          <li>
+            <strong>AI-assisted development:</strong> Cursor, GitHub Copilot
+          </li>
+        </ul>
+
+        <h2 style="margin-top: 18px">Speed to major revenue milestone</h2>
+        <div class="chartWrap">
+          <div class="chartBox compact">
+            <canvas id="revenueTimeline"></canvas>
+          </div>
+        </div>
+        <p class="note source">
+          Source:
+          <a
+            href="https://www.saastr.com/the-vibe-coding-tam-how-big-can-this-market-really-get/"
+            >Saastr</a
+          >
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>2) Adoption by sector</h2>
+        <div class="chartWrap">
+          <div class="chartBox">
+            <canvas id="adoptionBar"></canvas>
+          </div>
+        </div>
+        <p class="note source">
+          Source:
+          <a
+            href="https://www.secondtalent.com/resources/vibe-coding-statistics/"
+            >Secondtalent</a
+          >
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>3) Startup landscape: category counts</h2>
+        <p>This chart shows the number of startups in each category registered on <a href="https://www.vibecodedstartups.com">vibecodedstartups.com</a></p>
+          <div class="chartBox">
+            <canvas id="startupCategories"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Example product: <a href="https://thongtincuuho.org">ThongTincuuho.org</a></h2>
+        <div class="imageWrap">
+          <img src="image.png" alt="ThongTincuuho.org rescue map interface" />
+        </div>
+        <p>
+          A community-driven, real-time rescue information platform created for
+          floods and natural disasters. It aggregates rescue requests and
+          reports and visualizes them on a live interactive map. It gained
+          traction quickly within the first 24 hours, with strong community
+          sharing and reach.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>4) Why people use vibe coding</h2>
+        <p>
+          This chart breaks down the motivations people mention (percent
+          distribution).
+        </p>
+        <div class="twoCol">
+          <div class="left6">
+            <div class="chartWrap">
+              <div class="chartBox compact">
+                <canvas id="motivationPie"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="right6">
+            <h2>5) What the experience feels like</h2>
+            <p>
+              This chart summarizes how users describe the vibe-coding process
+              (percent distribution).
+            </p>
+            <div class="chartWrap">
+              <div class="chartBox compact">
+                <canvas id="experiencePie"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="note source">
+          Source:
+          <a href="https://arxiv.org/html/2510.00328v1"
+            >Ahmed Fawzy, Amjed Tahir, Kelly Blincoe
+          </a>
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>6) Code quality, in practice</h2>
+        <p>
+          People often describe AI-generated code as fast to produce, but uneven
+          in reliability and maintainability.
+        </p>
+        <div class="chartWrap">
+          <div class="chartBox">
+            <canvas id="qualityBar"></canvas>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h2 style="margin-top: 14px">7) Quality assurance habits</h2>
+        <p>
+          This chart shows how people validate AI-written code (testing, edits,
+          relying on AI, or skipping QA).
+        </p>
+        <div class="chartWrap">
+          <div class="chartBox">
+            <canvas id="qaBar"></canvas>
+          </div>
+        </div>
+        <p class="note source">
+          Source:
+          <a href="https://arxiv.org/html/2510.00328v1"
+            >Ahmed Fawzy, Amjed Tahir, Kelly Blincoe
+          </a>
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>8) Current risks and challenges</h2>
+        <p>Primary issues identified by development organizations:</p>
+
+        <div class="kpiRow">
+          <div class="kpi">
+            <strong>75%</strong>
+            <span
+              >Report code quality inconsistency that requires extensive
+              review</span
+            >
+          </div>
+          <div class="kpi">
+            <strong>53%</strong>
+            <span
+              >Found security issues in AI-generated code that passed initial
+              review</span
+            >
+          </div>
+          <div class="kpi">
+            <strong>47%</strong>
+            <span
+              >Worry about copyright and license compliance related to training
+              data</span
+            >
+          </div>
+          <div class="kpi">
+            <strong>44%</strong>
+            <span
+              >Observe weaker fundamental programming skills among junior
+              developers</span
+            >
+          </div>
+          <div class="kpi">
+            <strong>63%</strong>
+            <span
+              >Spent more time debugging AI code than writing it manually</span
+            >
+          </div>
+        </div>
+        <p class="note source">
+          Source:
+          <a
+            href="https://www.secondtalent.com/resources/vibe-coding-statistics/"
+            >Secondtalent</a
+          >
+        </p>
+      </section>
+    </main>
+
+    <script>
+      // ---------- Colorful chart palette ----------
+      const PALETTE = [
+        getComputedStyle(document.documentElement)
+          .getPropertyValue("--pink")
+          .trim(),
+        getComputedStyle(document.documentElement)
+          .getPropertyValue("--violet")
+          .trim(),
+        getComputedStyle(document.documentElement)
+          .getPropertyValue("--blue")
+          .trim(),
+        getComputedStyle(document.documentElement)
+          .getPropertyValue("--cyan")
+          .trim(),
+        getComputedStyle(document.documentElement)
+          .getPropertyValue("--green")
+          .trim(),
+        getComputedStyle(document.documentElement)
+          .getPropertyValue("--yellow")
+          .trim(),
+        getComputedStyle(document.documentElement)
+          .getPropertyValue("--orange")
+          .trim(),
+        getComputedStyle(document.documentElement)
+          .getPropertyValue("--red")
+          .trim(),
+      ];
+
+      // Chart.js global defaults for readability on dark background
+      Chart.defaults.color = "rgba(246,248,255,0.92)";
+      Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
+
+      function baseOptions(title) {
+        return {
+          responsive: true,
+          maintainAspectRatio: false, // critical for responsive sizing with .chartBox height
+          plugins: {
+            legend: {
+              labels: {
+                boxWidth: 14,
+                boxHeight: 14,
+              },
+            },
+            title: {
+              display: true,
+              text: title,
+              color: "rgba(246,248,255,0.98)",
+              font: { size: 14, weight: "600" },
+            },
+            tooltip: {
+              backgroundColor: "rgba(0,0,0,0.85)",
+              borderColor: "rgba(255,255,255,0.18)",
+              borderWidth: 1,
+            },
+          },
+          scales: {
+            x: {
+              ticks: { color: "rgba(201,211,255,0.95)" },
+              rescale: true,
+              grid: { color: "rgba(255,255,255,0.10)" },
+            },
+            y: {
+              beginAtZero: true,
+              ticks: { color: "rgba(201,211,255,0.95)" },
+              grid: { color: "rgba(255,255,255,0.10)" },
+            },
+          },
+        };
+      }
+
+      function mkBar(id, labels, data, title) {
+        const ctx = document.getElementById(id);
+        return new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels,
+            datasets: [
+              {
+                label: title,
+                data,
+                backgroundColor: labels.map(
+                  (_, i) => PALETTE[i % PALETTE.length]
+                ),
+                borderColor: "rgba(255,255,255,0.28)",
+                borderWidth: 1,
+                borderRadius: 8,
+              },
+            ],
+          },
+          options: baseOptions(title),
+        });
+      }
+
+      function mkPie(id, labels, data, title) {
+        const ctx = document.getElementById(id);
+        return new Chart(ctx, {
+          type: "pie",
+          data: {
+            labels,
+            datasets: [
+              {
+                label: title,
+                data,
+                backgroundColor: labels.map(
+                  (_, i) => PALETTE[i % PALETTE.length]
+                ),
+                borderColor: "rgba(255,255,255,0.22)",
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            ...baseOptions(title),
+            scales: {}, // pies don't need axes
+          },
+        });
+      }
+
+      // ---------- Charts (data unchanged) ----------
+
+      // Revenue timeline (months to milestone)
+      mkBar(
+        "revenueTimeline",
+        ["Loveable", "Replit", "Cursor"],
+        [8, 8, 12],
+        "Months to reach $100M ARR"
+      );
+
+      // Adoption by sector (%)
+      mkBar(
+        "adoptionBar",
+        [
+          "Tech Startups",
+          "Digital Agencies",
+          "E-commerce",
+          "Financial Services",
+          "Healthcare",
+        ],
+        [73, 61, 57, 34, 28],
+        "Vibe coding adoption rate by sector (%)"
+      );
+
+      // Startup categories
+      mkBar(
+        "startupCategories",
+        [
+          "AI-Native Applications",
+          "Productivity & Personal Systems",
+          "Business Operations & SaaS",
+          "Developer & Builder Tools",
+          "Automation & Orchestration",
+          "Marketing, Growth & Distribution",
+          "Content, Creator & Publishing",
+          "Consumer, Lifestyle & Utility",
+          "Marketplaces, Directories & Discovery",
+          "Identity, Payments & Trust",
+          "Education & Learning",
+          "Experimental, Indie & Fun",
+        ],
+        [23, 17, 20, 22, 16, 17, 18, 17, 14, 15, 11, 12],
+        "Vibe-coded startups: count per category"
+      );
+
+      // Motivation (%)
+      mkPie(
+        "motivationPie",
+        [
+          "Speed & Efficiency (62%)",
+          "Accessibility & Empowerment (14%)",
+          "Learning & Experimentation (11%)",
+          "Creative Exploration (6%)",
+          "Fast Prototyping (3%)",
+          "Reducing Mental Effort (1%)",
+          "Frustration Avoidance (1%)",
+          "Escape Complexity (1%)",
+          "Curiosity or Play (1%)",
+        ],
+        [62, 14, 11, 6, 3, 1, 1, 1, 1],
+        "Motivation distribution"
+      );
+
+      // Experiences (%)
+      mkPie(
+        "experiencePie",
+        [
+          "Instant Success & Flow (64%)",
+          "Prompt Struggle & Iteration (13%)",
+          "Code Breakdown or Abandonment (11%)",
+          "Fun & Creative Satisfaction (8%)",
+          "AI Hallucinations (2%)",
+          "Confusion or Misunderstanding (2%)",
+        ],
+        [64, 13, 11, 8, 2, 2],
+        "Experience distribution"
+      );
+
+      // Code quality (%)
+      mkBar(
+        "qualityBar",
+        [
+          "Fast but Flawed",
+          "Fragile or Error-Prone",
+          "Sloppy / Low Maintainability",
+          "Prototype-Ready Only",
+          "High Quality & Clean",
+          "Misleading Confidence",
+        ],
+        [68, 19, 4, 4, 3, 1],
+        "Perception of generated code quality (%)"
+      );
+
+      // QA practices (%)
+      mkBar(
+        "qaBar",
+        [
+          "Skipped QA",
+          "Manual Testing or Edits",
+          "Uncritical Trust",
+          "Delegated QA to AI",
+          "Reprompting Instead of Debugging",
+          "Run-and-See Validation",
+          "QA Breakdown or Confusion",
+        ],
+        [36, 29, 18, 10, 5, 2, 1],
+        "QA practices in vibe coding (%)"
+      );
+    </script>
+  </body>
+</html>
